@@ -1,0 +1,155 @@
+Меня зовут Ишенбай уулу Кутмман 
+группа: GeekTech 08-2F250920021
+учитель: Абдумалик Кочкоров 
+
+1) ЧТО ТАКОЕ PROMISE
+
+Promise- это удобный способ организации асинхронного кода
+и специальный объект который содержит своё состояние.
+Вначале pending («ожидание») затем – одно из: fulfilled («выполнено успешно») или rejected («выполнено с ошибкой»).
+
+var promise = new Promise(function(resolve, reject) {
+  // Эта функция будет вызвана автоматически
+  // В ней можно делать любые асинхронные операции,
+  // А когда они завершатся — нужно вызвать одно из:
+  // resolve(результат) при успешном выполнении
+  // reject(ошибка) при ошибке
+})
+
+
+const p = new Promise(function(resolve, reject) {
+    setTimeout(() => {
+        console.log('Preparing data...')
+
+        const backendData = {
+            server: 'aws',
+            port: 2000,
+            status: 'working'
+        }
+        resolve()
+    }, 2000)
+})
+
+p.then(() => {
+    console.log('Promise resolved');
+})
+
+-----------------------------------------------
+
+
+
+2) КОНТЕКСТ JS В КЛАССЕ THIS
+
+Если функиция вызывается через new как 
+конструкор объекта то this ставится на 
+создаваемый объект:
+
+function Animal (name){
+    this.name = name
+}
+
+в результате получается объект инициализированный 
+конструктором с заполненым свойствам name.
+
+function hello() {
+    console.log('Hello', this);
+}
+
+const person = {
+    name: 'Vladilen',
+    age: 25,
+    sayHello: hello,
+    sayHelloWindow: hello.bind(document),
+    logInfo: function( job, phone){
+        console.group(`${this.name} info:`)
+        console.log(`Name is ${this.name}`)
+        console.log(`Age is ${this.age}`)
+        console.log(`Job is ${this.job}`)
+        console.log(`Phone is ${this.phone}`)
+        console.groupEnd()
+    }
+}
+
+const Kuti = {
+    name: 'Kutman',
+    age: 18
+}
+
+person.logInfo.apply(Kuti, ['Frontend', '996-500-31-12-16'])
+
+
+
+---------------------------------------------------------------------
+
+
+3) ЗАЧЕМ НУЖНЫ СТРЕЛОЧНЫЕ ФУНКЦИИ, РАЗНИЦА МЕЖДУ ФУНКЦИЯМИ В jS
+
+1) ЗАЧЕМ НУЖНЫ СТРЕЛОЧНЫЕ ФУНКЦИИ 
+
+У стрелочных функций есть два основных преимущества перед традиционными функциями.
+ Первое — это очень удобный и компактный синтаксис. 
+Второе — заключается в том что подход к работе со значением this в стрелочных функциях 
+выглядит интуитивно понятнее чем в обычных функциях.
+
+ let myFunc = (z,y) => {
+     return z*3*y;
+ }
+ console.log (myFunc (5,18) );
+----------------------------------
+ let myFunc = (z,y) => z*5*y;
+ console.log(myFunc (3,6) );
+
+2) РАЗНИЦА МЕЖДУ ФУНКЦИЯМИ В jS
+
+Функция в JavaScript специальный тип объектов позволяющий формализовать
+средствами языка определённую логику поведения и обработки данных.
+
+-------------------------------------------------------------------------
+
+
+
+4) ЗАМЫКАНИЕ В JS
+ 
+Замыкание это просто функция внутри другой функции
+
+ function createIncrementor(n){
+    return function(num) {
+      return n + num 
+   }
+}
+
+const addOne = createIncrementor(1)
+const addTen = createIncrementor
+
+console.log(addOne(10))
+console.log(addOne(50))
+
+console.log(addTen(10))
+console.log(addTen(100))
+
+
+-------------------------------------------------
+
+
+
+
+5) КОНСТРУКЦИЯ ASYNC\AWAIT
+
+ ASYNC\AWAIT написано сверху промиса и хорошо работают 
+ и взаимодействует данная конструкция заставляет код
+ который работает Асинхронно выглядеть как Синхронно 
+ это именно то ради чего его используют
+
+ const getNameData = async () => {
+   console.log(await fetchData());
+   return 'done';
+ }
+
+ getNameData();
+
+
+
+
+
+
+
